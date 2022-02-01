@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "News App",
+          "App de Notícias",
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black12,
       ),
       body: FutureBuilder(
           future: client.getArticle(),
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                 itemCount: articles!.length,
                 itemBuilder: (context, index) =>
-                    CustomListTile(articles[index]),
+                    CustomListTile(articles[index], context),
               );
             }
             return Center(
