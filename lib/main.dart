@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/components/custom_list_tile.dart';
 import 'package:news_app/services/api_service.dart';
 
 import 'model/article_model.dart';
@@ -47,9 +48,8 @@ class _HomePageState extends State<HomePage> {
               List<Article>? articles = snapshot.data;
               return ListView.builder(
                 itemCount: articles!.length,
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(articles[index].title),
-                ),
+                itemBuilder: (context, index) =>
+                    CustomListTile(articles[index]),
               );
             }
             return Center(
