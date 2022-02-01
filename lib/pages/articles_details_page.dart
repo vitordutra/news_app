@@ -46,7 +46,7 @@ class ArticleDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              article.description,
+              article.content,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
