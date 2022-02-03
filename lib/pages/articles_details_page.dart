@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/article_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDetailsPage extends StatelessWidget {
   final Article article;
   const ArticleDetailsPage({Key? key, required this.article}) : super(key: key);
+
+  launchURL() async {
+    String url = article.url;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +29,7 @@ class ArticleDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               height: 200.0,
@@ -33,16 +43,20 @@ class ArticleDetailsPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8.0),
-            Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Text(
-                article.source.name,
-                style: TextStyle(color: Colors.white),
-              ),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Text(
+                    article.source.name,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 8.0),
             Text(
@@ -51,7 +65,12 @@ class ArticleDetailsPage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
-            )
+            ),
+            SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: this.launchURL,
+              child: Text("Ler notícia completa"),
+            ),
           ],
         ),
       ),
